@@ -5,6 +5,7 @@
   "scripts": {
     "server": "nodemon server/server.js"
   },
+  "type": "module",
   "author": "Yunxin Liu",
   "license": "ISC",
   "description": "",
