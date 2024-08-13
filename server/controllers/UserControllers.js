@@ -69,10 +69,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        res.cookie('jwt', 'loggedout', {
-            httpOnly: true,
-            expires: new Date(0)
-        })
+        res.cookie('jwt', '', {maxAge:0});
         
         res.status(200).json({Message: 'Logged Out Successfully'})
     } catch (error) {
