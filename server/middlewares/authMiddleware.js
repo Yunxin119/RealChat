@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import User from '../models/UserModel';
 
 export const protectMiddleware = async (req, res, next) => {
     let token; // declare token variable
@@ -7,7 +8,11 @@ export const protectMiddleware = async (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET); // verify token
-            req.user = User.findById(decoded.id); // get user from decoded token
+            const user = await User.findById(decoded.id).select('-password'); // get user data from database, excluding password to be safe
+            if (!user) {
+                res.status(404).json({message: 'User not found'});
+            }
+            req.user = user; // set user data to req.user
             next();
         } catch (error) {
             console.error(error.message);
