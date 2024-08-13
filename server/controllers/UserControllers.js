@@ -67,6 +67,9 @@ export const login = async (req, res) => {
     }
 }
 
+// desc: logout a user
+// @route: POST /api/users/auth/logout
+// @access: Private
 export const logout = (req, res) => {
     try {
         res.cookie('jwt', '', {maxAge:0});
