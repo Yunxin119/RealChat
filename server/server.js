@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json()); // parse json data (req.body)
 app.use(cookieParser()); // parse cookies
 app.use('/api/users', UserRoutes);
-app.use('api/messages', MessageRoutes);
+app.use('/api/messages', MessageRoutes);
 
 
 app.listen(5000, () => {

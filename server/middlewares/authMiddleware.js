@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/UserModel';
+import User from '../models/UserModel.js';
 
 export const protectMiddleware = async (req, res, next) => {
     let token; // declare token variable
