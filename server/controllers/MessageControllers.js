@@ -48,9 +48,10 @@ export const getMessages = async (req, res) => {
         const receiver = req.params.id;
         const sender = req.user._id; // get sender from authenticated user
 
-        let conversation = await Conversation.findOne({members: {$all: [sender, receiver]}}).populate("messages"); // populate messages in conversation
         // populate here is a method that allows you to reference documents in other collections
         // populate("messages") will populate messages in conversation
+        let conversation = await Conversation.findOne({members: {$all: [sender, receiver]}}).populate("messages"); // populate messages in conversation
+
 
         // if conversation does not exist, return error
         if (!conversation) {

@@ -80,3 +80,17 @@ export const logout = (req, res) => {
     }
 }
 
+// @desc: get users from sidebar
+// @route: GET /api/users
+// @access: Private
+export const getUsersFromSidebar = async (req, res) => {
+    try {
+        const authUser = req.user._id;
+        // Here we don't want to show the authenticated user in the sidebar so we need to exclude the authenticated user
+        const users = await User.find({_id: {$ne: req.user._id}}).select("-password"); // {$ne: req.user._id} means not equal to the authenticated user
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+}
+
