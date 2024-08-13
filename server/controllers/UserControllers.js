@@ -1,5 +1,6 @@
 import User from '../models/UserModel.js';
 import bcrypyt from 'bcryptjs';
+import generateTokenAndCookie from '../utils/generateToken.js';
 
 // @desc: signup a new user
 // @route: POST /api/users/auth/signup
@@ -31,8 +32,10 @@ export const signup = async (req, res) => {
         profilePic: gender == "male" ? maleProfilePic : femaleProfilePic,
     });
 
-    await user.save();
-    // JWT token
+    if (user) {
+        generateTokenAndCookie(user._id, res);
+        user.save();
+    }
     res.status(201).json({
         _id: user._id,
         username: user.username,
@@ -40,11 +43,40 @@ export const signup = async (req, res) => {
     });
 }
 
+// @desc: login a user
+// @route: POST /api/users/auth/login
+// @access: Public
 export const login = async (req, res) => {
-    res.send('login page');
+    try {
+        const {username, password} = req.body;
+        const user = await User.findOne({username});
+        const passwordMatch = await bcrypyt.compare(password, user.password);
+        if (user && passwordMatch) {
+            generateTokenAndCookie(user._id, res);
+            res.status(200).json({
+                _id: user._id,
+                username: user.username,
+                profilePic: user.profilePic,
+            });
+        } else {
+            res.status(400);
+            throw new Error('Invalid username or password');
+        }
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
 }
 
 export const logout = (req, res) => {
-    res.send('logout page');
+    try {
+        res.cookie('jwt', 'loggedout', {
+            httpOnly: true,
+            expires: new Date(0)
+        })
+        
+        res.status(200).json({Message: 'Logged Out Successfully'})
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
 }
 

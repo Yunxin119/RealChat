@@ -10,5 +10,6 @@ const generateTokenAndCookie = (id, res) => {
         httpOnly: true, // this is to prevent XSS attacks
         samesite: 'strict', // this is to prevent CSRF attacks
     })
-    return token;
 }
+
+export default generateTokenAndCookie;
