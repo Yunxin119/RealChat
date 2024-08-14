@@ -1,9 +1,11 @@
 import React from 'react'
 import Messages from './Messages'
 import MessageInput from './MessageInput'
+import { useAuth } from '../../context/AuthContext'
 
 const MessageContainer = () => {
   const noChatSelected = true
+  
   return (
     <div className='md: min-w-[450px] flex flex-col'>
       {noChatSelected ? <NoChatSeletedPage /> : (
@@ -29,11 +31,12 @@ const MessageContainer = () => {
 }
 
 const NoChatSeletedPage = () => {
+  const { authUser } = useAuth()
   return (
     <div className='flex items-center flex-col w-full h-full justify-center'>
       <div className='text-gray-100 text-center px-4 sm:text-lg md:text-xl lg:text-2xl font-semibold text-opacity-70'>
         <p className="animate-fade-in">Hey there, 
-          <span className="text-blue-500"> John Doe</span>! 
+          <span className="text-blue-500"> {authUser.nickname}</span>! 
           <span> 👋 </span>
         </p>
       <p className=" text-gray-400">Say hello to your next great chat! <span className="text-blue-300">✨</span></p>
