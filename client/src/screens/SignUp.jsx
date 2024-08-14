@@ -2,6 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const SignUp = () => {
+    
+    const submitHandler = (e) => {
+        e.preventDefault()
+        console.log('Sign Up')
+    }
 
     return (
         <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
@@ -14,10 +19,16 @@ const SignUp = () => {
                 {/* Form */}
                 <form className='p-2'>
                     {/* Username */}
+                        <label className='label p-2'>
+                        <span className=' text-base label-text'>Nick Name</span>
+                    </label>
+                    <input type="text" placeholder="Choose your hero name" class="input input-bordered w-full max-w-xs h-10 bg-opacity-80" />
+
+                    {/* Username */}
                     <label className='label p-2'>
                         <span className=' text-base label-text'>Username</span>
                     </label>
-                    <input type="text" placeholder="Choose your hero name" class="input input-bordered w-full max-w-xs h-10 bg-opacity-80" />
+                    <input type="text" placeholder="Pick an username" class="input input-bordered w-full max-w-xs h-10 bg-opacity-80" />
                     {/* Password */}
                     <label className='label p-2'>
                         <span className=' text-base label-text'>Password</span>
@@ -46,10 +57,13 @@ const SignUp = () => {
                     {/* Already Have Account? */}
                     <div className='p-2 items-center justify-center text-sm'>
                          Already have an account? 
-                         {/* <Link to = {'/login'}> Let's get you in! </Link> */}
+                         <Link to = {'/login'} className='hover:text-sky-500'> Login </Link>
                     </div>
                     {/* Log In Button */}
-                    <button className="btn glass btn-block mt-2">Sign Up</button>
+                    <button 
+                        className="btn glass btn-block mt-2"
+                        onClick={submitHandler}
+                    >Sign Up</button>
                 </form>
             </div>
     

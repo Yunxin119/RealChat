@@ -25,7 +25,7 @@ const Login = () => {
                 {/* No Account? */}
                 <div className='p-2 items-center justify-center'>
                     New here?
-                     <Link to = {'/signup'}> Let's get you started! </Link>
+                     <Link to = {'/signup'} className='hover:text-sky-500'> Let's get you started! </Link>
                 </div>
                 {/* Log In Button */}
                 <button className="btn glass btn-block mt-2">Login</button>

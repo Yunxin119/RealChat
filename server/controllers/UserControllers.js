@@ -6,7 +6,7 @@ import generateTokenAndCookie from '../utils/generateToken.js';
 // @route: POST /api/users/auth/signup
 // @access: Public
 export const signup = async (req, res) => {
-    const {username, password, comfirmPassword, gender} = req.body;
+    const {nickname, username, password, comfirmPassword, gender} = req.body;
     // validate user input
     if (comfirmPassword !== password) {
         res.status(400);
@@ -26,6 +26,7 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypyt.hash(password, salt);
     // create user
     const user = await User.create({
+        nickname,
         username,
         password: hashedPassword,
         gender,
@@ -38,6 +39,7 @@ export const signup = async (req, res) => {
     }
     res.status(201).json({
         _id: user._id,
+        nickname: user.nickname,
         username: user.username,
         profilePic: user.profilePic,
     });
