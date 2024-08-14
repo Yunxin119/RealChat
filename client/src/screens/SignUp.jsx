@@ -112,7 +112,14 @@ const SignUp = () => {
                     <button 
                         className="btn glass btn-block mt-2"
                         onClick={submitHandler}
-                    >Sign Up</button>
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <span className="loading loading-spinner"></span>
+                        ) : (
+                            <span>Sign Up</span>
+                        )}
+                    </button>
                 </form>
                
             </div>

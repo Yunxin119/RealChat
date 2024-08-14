@@ -54,8 +54,13 @@ const Login = () => {
                     type="submit" 
                     className="btn glass btn-block mt-2"
                     onClick={submitHandler}
+                    disabled={loading}
                 >
-                    Login
+                    {loading ? (
+                        <span className="loading loading-spinner"></span>
+                    ) : (
+                        <span>Login</span>
+                    )}
                 </button>
             </form>
         </div>
