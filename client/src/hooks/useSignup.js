@@ -1,9 +1,11 @@
 
 import {useState} from 'react'
 import { toast } from 'react-toastify'
+import { useAuth } from '../context/AuthContext'
 
 const useSignup = () => {
     const [loading, setLoading] = useState(false)
+    const { setAuthUser } = useAuth()
 
     const signup = async ({nickname, username, password, comfirmPassword, gender}) => {
         // some validation
@@ -36,7 +38,11 @@ const useSignup = () => {
                 toast.error(data.error)
                 throw new Error(data.error)
             }
-            console.log(data)
+            // localstorage
+            localStorage.setItem('userInfo', JSON.stringify(data))
+            // after signup, the user will be logged in and we set the user information in the AuthContext
+            // we will be redirected to the home page
+            setAuthUser(data)
         } catch (error) {
             toast.error(error.response.data.message)
         } finally {
