@@ -1,14 +1,11 @@
 import React from 'react'
 import useConversation from '../../store/useConversation'
-import { getRandomEmoji } from '../../assets/emoji'
 
-const SingleConversation = ({user}) => {
+const SingleConversation = ({user, emoji}) => {
     // State management
     const { selectedConversation, setSelectedConversation } = useConversation()
     const isSelected = selectedConversation?._id === user._id // check if the selected conversation is the same as the user id
 
-    // Set the emoji
-    const emoji = getRandomEmoji()
   return (
     <>
         <div className={'flex gap-3 items-center hover:bg-sky-400 rounded-md p-2 py-2 cursor-pointer' + (isSelected ? ' bg-sky-400' : '')}
