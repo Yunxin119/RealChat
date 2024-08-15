@@ -1,17 +1,34 @@
 import React from 'react'
 import { useState } from 'react'
+import useGetSidebar from '../../hooks/useGetSidebar'
+import { toast } from 'react-toastify'
+import useConversation from '../../store/useConversation'
+import { set } from 'mongoose'
 
 const SearchInput = () => {
   const [search, setSearch] = useState('')
+  const {sidebar} = useGetSidebar()
+  const {setSelectedConversation} = useConversation()
   const handleSearch = (e) => {
     e.preventDefault()
-    // search(search)
-    console.log(search)
+    searchHandler(search)
   }
+
+  const searchHandler = (search) => {
+    if (!search) return
+    const searchedUser = sidebar.find(user => user.nickname.toLowerCase().includes(search.toLowerCase()) || user.username.toLowerCase().includes(search.toLowerCase()))
+    if (!searchedUser) {
+      toast.error('User not found')
+      return
+    }
+    setSelectedConversation(searchedUser)
+    setSearch('')
+  }
+
   return (
     <form onSubmit={handleSearch} className='items-center gap-2 flex'>
         <input type="text" placeholder='Search...' className='input input-bordered rounded-full'
-        value={search} onChange={(e) => setSearch(e.target)}
+        value={search} onChange={(e) => setSearch(e.target.value)}
         />
         <button type='submit' className='btn btn-circle bg-sky-400 text-white'>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
