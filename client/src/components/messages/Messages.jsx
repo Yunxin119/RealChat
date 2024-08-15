@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import useConversation from '../../store/useConversation'
 import useGetMessage from '../../hooks/useGetMessage'
 import SingleMessage from './SingleMessage'
 import Skeleton from '../Skeleton'
+import { set } from 'mongoose'
 
 const Messages = () => {
   const {loading, messages} = useGetMessage()
-  // console.log(messages)
+  // useRef to get the last message
+  const lastMessageRef = useRef()
+
+  // Make the message page scroll to the bottom when the page is loaded
+  useEffect(() => {
+    setTimeout(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' }, 100)
+    })
+  }, [messages])
 
   return (
 		<div className='px-4 flex-1 overflow-auto'>
@@ -16,7 +25,9 @@ const Messages = () => {
         <p className='text-center text-gray-300 mt-3'>Send a message to start conversation!</p>
       )}
       {!loading && messages.map((message) => (
-        <SingleMessage key={message._id} message={message} />
+        <div  key={message._id} ref={lastMessageRef}>
+        <SingleMessage message={message} />
+        </div>
       ))}
       {/* <SingleMessage /> */}
 		</div>
