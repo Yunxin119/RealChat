@@ -1,5 +1,6 @@
 import Message from "../models/MessageModel.js";
 import Conversation from "../models/ConversationModel.js";
+import { getReceiverSocketId } from "../socket/socket.js";
 
 // @desc: send a message
 // @route: POST /api/messages/send/:id
@@ -28,11 +29,17 @@ export const sendMessage = async (req, res) => {
             conversation.messages.push(newMessage._id);
         }
 
-        // TODO: Socket.io implementation
-
         // save conversation and message to database
         await conversation.save();
         await newMessage.save();
+
+        // TODO: Socket.io implementation
+        const recieverSocketId = getReceiverSocketId(receiver);
+        // if reciever is online, send the message to the reciever
+        if (recieverSocketId) {
+            // io.to() sends an event to a specific client rather than io.emit send to all online users
+            io.to(recieverSocketId).emit("getMessage", newMessage);
+        }
 
         res.status(201).json(newMessage);
 

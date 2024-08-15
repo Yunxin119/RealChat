@@ -16,7 +16,14 @@ const io = new Server(server, {
     }
 ); // create a socket.io server
 
+// MARK: userSocketMap to store the user and socket id and reference
 const userSocketMap = {} // {userId: socketId}
+
+// MARK: Set the reciever of message
+export const getReceiverSocketId = (receiverId) => {
+    return userSocketMap[receiverId];
+}
+
 
 // io.on is an event listener that listens for a connection event
 // When a connection event is detected, it will run the callback function
