@@ -34,7 +34,7 @@ export const sendMessage = async (req, res) => {
         await conversation.save();
         await newMessage.save();
 
-        res.status(201).json({message: "Message sent successfully"});
+        res.status(201).json(newMessage);
 
 
     } catch (error) {
@@ -53,10 +53,9 @@ export const getMessages = async (req, res) => {
         let conversation = await Conversation.findOne({members: {$all: [sender, receiver]}}).populate("messages"); // populate messages in conversation
 
 
-        // if conversation does not exist, return error
-        if (!conversation) {
-            return res.status(404).json({message: "No messages found"});
-        }
+        // if conversation does not exist, return empty array
+        if (!conversation) return res.status(200).json([]);
+
         res.status(200).json(conversation.messages);
     } catch (error) {
         console.error(error.message);

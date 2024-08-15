@@ -6,6 +6,7 @@ import useConversation from '../../store/useConversation'
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation()
+  const { authUser } = useAuth()
 
   // useEffect to clean up the selected conversation after the component is unmounted (when the user logs out)
   useEffect(() => {
@@ -17,7 +18,7 @@ const MessageContainer = () => {
       {!selectedConversation ? <NoChatSeletedPage /> : (
         <>
         {/* Header */}
-        <div className=' flex bg-slate-50 bg-opacity-50 px-4 py-2 mb-2 justify-between'>
+        <div className=' flex bg-slate-50 bg-opacity-50 px-4 py-2 mb-4 justify-between'>
           <span className='label-text ml-1'>To:</span> {" "}  
           {/* the {" "} is used to add a space between the span and the next element */}
           <span className='text-gray-700 font-semibold mr-1'>{selectedConversation.nickname}</span>
@@ -38,6 +39,7 @@ const MessageContainer = () => {
 
 const NoChatSeletedPage = () => {
   const { authUser } = useAuth()
+  
   return (
     <div className='flex items-center flex-col w-full h-full justify-center'>
       <div className='text-gray-100 text-center px-4 sm:text-lg md:text-xl lg:text-2xl font-semibold text-opacity-70'>

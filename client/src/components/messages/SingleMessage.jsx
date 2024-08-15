@@ -1,25 +1,39 @@
 import React from 'react'
+import { useAuth } from '../../context/AuthContext'
+import useConversation from '../../store/useConversation'
 
-const SingleMessage = () => {
+const SingleMessage = ({message}) => {
+  const { authUser } = useAuth()
+  const { selectedConversation } = useConversation()
+  const fromMe = message.senderId === authUser._id
+  const sentTime = new Date(message.createdAt).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+});
+  const profilePic = fromMe ? authUser.profilePic : selectedConversation.profilePic
+  const chatType = fromMe ? 'chat-end' : 'chat-start'
   return (
-    <div className='chat chat-end'>
+    <div className={`chat ${chatType}`}>
       {/* chat end means sending from my side, chat start means the opposite */}
 
         {/* Avatar */}
         <div className="chat-image avatar">
             <div className="w-10 rounded-full">
-                <img
-                    alt="Tailwind CSS chat bubble component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              <img
+                alt="Sender Avatar"
+                src={profilePic}
+              />
             </div>
         </div>
         {/* Message Content */}
-        {/* TODO:  */}
-        {/* I would like to dynamically set the incoming message (chat-start) to bg-gray-100 and text-gray-700 */}
-        {/* And set the chat-end message to bg-indigo-500 and text-white */}
-        <div className="chat-bubble bg-indigo-500 bg-opacity-60 text-white">It was said that you would, destroy the Sith, not join them.</div>
+        {fromMe ? (
+          <div className="chat-bubble bg-indigo-500 bg-opacity-60 text-white">{message.message}</div>
+        ): (
+          <div className="chat-bubble bg-gray-100 bg-opacity-60 text-gray-700">{message.message}</div>
+        )}
+        
         {/* Message Footer */}
-        <div class="chat-footer mt-[3px] text-sm opacity-50 text-gray-500">16:56</div>
+        <div class="chat-footer mt-[3px] text-sm opacity-50 text-gray-500">{sentTime}</div>
     </div>
   )
 }

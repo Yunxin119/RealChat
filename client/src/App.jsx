@@ -13,6 +13,10 @@ import { useAuth } from "./context/AuthContext"
 
 function App() {
   const { authUser } = useAuth()
+  // const debugging = () => {
+  //   console.log('authUser:', authUser)
+  // }
+  // debugging()
   return (
     <div className="flex h-screen p-4 items-center justify-center">
       <Routes>

@@ -6,14 +6,12 @@ import { toast } from 'react-toastify';
 const useSendMessage = () => {
     const [loading, setLoading] = useState(false);
     const { messages, setMessages, selectedConversation } = useConversation();
-    const { authUser } = useAuth();
 
     const sendMessage = async (message) => {
-        if (!message) return;
 
         setLoading(true);
         try {
-            const res = await fetch(`api/messages/send/${selectedConversation.id}`, {
+            const res = await fetch(`api/messages/send/${selectedConversation._id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,7 +23,7 @@ const useSendMessage = () => {
                 toast.error(data.error);
                 throw new Error(data.error);
             }
-            setMessages([...messages, data.message]);
+            setMessages([...messages, data]);
         } catch (error) {
             toast.error(error.response.data.message);
         } finally {
