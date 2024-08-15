@@ -16,13 +16,27 @@ const io = new Server(server, {
     }
 ); // create a socket.io server
 
+const userSocketMap = {} // {userId: socketId}
+
 // io.on is an event listener that listens for a connection event
 // When a connection event is detected, it will run the callback function
 // socket.on() is an event listener that listens for a disconnect event and can be used on client and server side
 io.on("connection", (socket) => {
-    console.log("a user connected");
+    console.log("a user connected", socket.id);
+
+    const userId = socket.handshake.query.userId;
+    if (userId != "undefined") {
+        userSocketMap[userId] = socket.id;
+    }
+
+    // io.emit() sends an event to all connected clients
+    io.emit("onlineUsers", Object.keys(userSocketMap)); // send the online users to all clients
+    
     socket.on("disconnect", () => {
-        console.log("user disconnected");
+        console.log("user disconnected", socket.id);
+        delete userSocketMap[userId]; // remove the user from the online users list
+        io.emit("onlineUsers", Object.keys(userSocketMap)); // refresh the online users list
     });
 });
 export { app, io, server };
+
