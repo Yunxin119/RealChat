@@ -30,12 +30,12 @@ io.on("connection", (socket) => {
     }
 
     // io.emit() sends an event to all connected clients
-    io.emit("onlineUsers", Object.keys(userSocketMap)); // send the online users to all clients
+    io.emit("getOnlineUsers", Object.keys(userSocketMap)); // send the online users to all clients
     
     socket.on("disconnect", () => {
         console.log("user disconnected", socket.id);
         delete userSocketMap[userId]; // remove the user from the online users list
-        io.emit("onlineUsers", Object.keys(userSocketMap)); // refresh the online users list
+        io.emit("getOnlineUsers", Object.keys(userSocketMap)); // refresh the online users list
     });
 });
 export { app, io, server };
