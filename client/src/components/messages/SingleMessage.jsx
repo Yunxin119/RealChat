@@ -12,6 +12,8 @@ const SingleMessage = ({message}) => {
 });
   const profilePic = fromMe ? authUser.profilePic : selectedConversation.profilePic
   const chatType = fromMe ? 'chat-end' : 'chat-start'
+  const shakeStatus = message.shouldShake ? 'shake' : ''
+
   return (
     <div className={`chat ${chatType}`}>
       {/* chat end means sending from my side, chat start means the opposite */}
@@ -29,7 +31,7 @@ const SingleMessage = ({message}) => {
         {fromMe ? (
           <div className="chat-bubble bg-indigo-500 bg-opacity-60 text-white">{message.message}</div>
         ): (
-          <div className="chat-bubble bg-gray-100 bg-opacity-60 text-gray-700">{message.message}</div>
+          <div className={`chat-bubble bg-gray-100 bg-opacit dy-60 text-gray-700 ${shakeStatus}`}>{message.message}</div>
         )}
         
         {/* Message Footer */}

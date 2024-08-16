@@ -5,11 +5,14 @@ import useGetMessage from '../../hooks/useGetMessage'
 import SingleMessage from './SingleMessage'
 import Skeleton from '../Skeleton'
 import { set } from 'mongoose'
+import useMessageListener from '../../hooks/useMessageListener'
 
 const Messages = () => {
   const {loading, messages} = useGetMessage()
+  useMessageListener()
   // useRef to get the last message
   const lastMessageRef = useRef()
+
 
   // Make the message page scroll to the bottom when the page is loaded
   useEffect(() => {

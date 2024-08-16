@@ -19,7 +19,7 @@ const useGetSidebar = () => {
                 }
                 setSidebar(data)
             } catch (error) {
-                toast.error(error.response.data.message)
+                toast.error(error.message)
             } finally {
                 setLoading(false)
             }
