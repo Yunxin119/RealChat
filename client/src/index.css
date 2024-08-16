@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-	background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/bg-light.JPG");
+	background: linear-gradient(rgba(200, 200, 200, 0.1), rgba(199, 199, 199, 0.1)), url("/bg-light.JPG");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -14,6 +14,50 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
+}
+
+.hometext {
+	color: #404040
+}
+
+.dark .hometext {
+	color: #f3f4f6
+}
+
+.homesecondtext {
+	color: #686868
+}
+
+.input {
+	background-color: rgba(224, 224, 224, 0.3);
+}
+
+.dark .input {
+	background-color: rgba(107, 114, 128, 0.3);
+	--tw-border-opacity: 1;
+    border-color: rgb(107 114 128 / var(--tw-border-opacity)) /* #6b7280 */;
+}
+
+input::placeholder {
+	color:  rgba(66, 69, 75, 0.8);
+}
+
+.dark input::placeholder {
+	color:  rgba(255, 255, 255, 0.5)
+}
+
+.label-text {
+	color: #353535
+}
+
+.dark .label-text {
+	color: #d6d6d6
+}
+
+.toggle-text {
+	font-size: 0.875rem /* 14px */;
+    line-height: 1.25rem /* 20px */;
+    --tw-text-opacity: 1;
 }
 
 /* SHAKE ANIMATION ON HORIZONTAL DIRECTION */

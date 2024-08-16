@@ -15,7 +15,7 @@ const ThemeToggle = () => {
   return (
     <div className="form-control w-44 justify-end">
     <label className="label cursor-pointer">
-      <span className="label-text text-gray-400">Dark Mode</span>
+      <span className="toggle-text text-gray-400" >Dark Mode</span>
       <input type="checkbox" className="toggle toggle-accent" 
         onClick={toggleHandler}
         defaultChecked={localStorage.getItem('theme') === 'dark'}

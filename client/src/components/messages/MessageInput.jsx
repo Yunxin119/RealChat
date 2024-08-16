@@ -17,7 +17,7 @@ const MessageInput = () => {
                 <input
                     type="text"
                     placeholder="What you wanna say?"
-                    className="bg-opacity-60 bg-gray-400 border text-sm rounded-lg block p-2.5 flex-grow border-gray-500"
+                    className="input border text-sm rounded-lg block p-2.5 flex-grow"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />

@@ -45,7 +45,7 @@ const Login = () => {
                     onChange={(e)=> setPassword(e.target.value)}
                 />
                 {/* No Account? */}
-                <div className='p-2 items-center justify-center'>
+                <div className='label-text p-2 items-center justify-center'>
                     New here?
                      <Link to = {'/signup'} className='hover:text-sky-500'> Let's get you started! </Link>
                 </div>
