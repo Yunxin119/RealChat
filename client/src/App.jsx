@@ -10,6 +10,7 @@ import Home from "./screens/Home"
 
 // import hooks
 import { useAuth } from "./context/AuthContext"
+import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
   const { authUser } = useAuth()
@@ -19,6 +20,9 @@ function App() {
   // debugging()
   return (
     <div className="flex h-screen p-4 items-center justify-center">
+      <div className="absolute top-4 right-8">
+        <ThemeToggle />
+      </div>
       <Routes>
         <Route path='/login' element={authUser ? <Navigate to="/"/> : <Login />} />
         <Route path='/signup' element={authUser ? <Navigate to="/"/> : <SignUp />} />
