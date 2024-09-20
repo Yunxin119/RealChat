@@ -1,6 +1,4 @@
-import { get } from 'mongoose'
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const useGetSidebar = () => {
@@ -12,12 +10,22 @@ const useGetSidebar = () => {
             setLoading(true)
             try {
                 const res = await fetch('/api/users')
+                if (!res.ok) {
+                    throw new Error('Failed to fetch users')
+                }
                 const data = await res.json()
+
                 if (data.error) {
                     toast.error(data.error)
                     throw new Error(data.error)
                 }
-                setSidebar(data)
+
+                // Check if the returned data is an array
+                if (Array.isArray(data)) {
+                    setSidebar(data)
+                } else {
+                    throw new Error('Unexpected data format')
+                }
             } catch (error) {
                 toast.error(error.message)
             } finally {
@@ -27,7 +35,8 @@ const useGetSidebar = () => {
 
         getSidebar()
     }, [])
-  return { loading, sidebar };
+
+    return { loading, sidebar }
 }
 
 export default useGetSidebar

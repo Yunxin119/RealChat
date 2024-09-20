@@ -13,7 +13,6 @@ const Messages = () => {
   // useRef to get the last message
   const lastMessageRef = useRef()
 
-
   // Make the message page scroll to the bottom when the page is loaded
   useEffect(() => {
     setTimeout(() => {
@@ -32,7 +31,6 @@ const Messages = () => {
         <SingleMessage message={message} />
         </div>
       ))}
-      {/* <SingleMessage /> */}
 		</div>
   )
 }

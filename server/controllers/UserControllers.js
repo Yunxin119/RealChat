@@ -93,7 +93,7 @@ export const getUsersFromSidebar = async (req, res) => {
         const users = await User.find({_id: {$ne: req.user._id}}).select("-password"); // {$ne: req.user._id} means not equal to the authenticated user
         res.status(200).json(users);
     } catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(500).json({ message: 'Server error: ' + error.message }); 
     }
 }
 

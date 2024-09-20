@@ -12,7 +12,6 @@ const Conversations = () => {
     <div className='py-2 flex flex-col overflow-auto'>
       { sidebar.map((user) => (
         <SingleConversation key={user._id} user={user} emoji={getRandomEmoji()} />
-        // <span>{user.nickname}</span>
       ))}
 
     </div>

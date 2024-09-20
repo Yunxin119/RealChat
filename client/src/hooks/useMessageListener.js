@@ -6,13 +6,16 @@ import notification from '../assets/notification.mp3';
 const useMessageListener = () => {
     const { socket } = useSocket();
     const { messages, setMessages } = useConversation();
+    const { selectedConversation } = useConversation();
 
     useEffect(() => {
 		socket?.on("newMessage", (newMessage) => {
-			newMessage.shouldShake = true;
-            const audio = new Audio(notification);
-            audio.play();
-			setMessages([...messages, newMessage]);
+            if (newMessage.senderId === selectedConversation._id) {
+                newMessage.shouldShake = true;
+                const audio = new Audio(notification);
+                audio.play();
+                setMessages([...messages, newMessage]);
+            }
 		});
 
 		return () => socket?.off("newMessage");

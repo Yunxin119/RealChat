@@ -5,6 +5,7 @@ import useConversation from '../../store/useConversation'
 const SingleMessage = ({message}) => {
   const { authUser } = useAuth()
   const { selectedConversation } = useConversation()
+
   const fromMe = message.senderId === authUser._id
   const sentTime = new Date(message.createdAt).toLocaleTimeString('en-US', {
     hour: 'numeric',
